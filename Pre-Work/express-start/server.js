@@ -4,26 +4,39 @@ var express = require('express');
 var handlebars = require('express-handlebars');
 // invoke the express
 var app = express();
+
 // middleware for the template
 app.engine('handlebars', handlebars({defaultLayout: 'main'}));
 // declaring the view engine to "handlebars"
 app.set('view engine', 'handlebars');
 
-// we are rendering the home.handlebars template
+// Mock data
+var todos = [
+	{ body: 'organize my dorm', completed: false },
+	{ body: 'take out the trash', completed: false },
+	{ body: 'clean up my github repo', completed: false }
+];
+
+
+// Index route get
 app.get('/', function (req, res) {
-		//  demo data
-	var todos = [
-		{ body: 'organize my dorm', completed: false },
-		{ body: 'take out the trash', completed: false },
-	];
-	res.render('home', {todos: todos});
+	// we are rendering the home.handlebars template
+	res.render('home', { todos: todos });
 });
 
+// show a single
+app.get('/todos/:id', function (req, res) {
+	// url param
+	var todo = todos[req.params.id]
+	res.render('todo-show', {todo: todo})
+})
+// create
+// delete
+// update
+// edit
+// new
 
 // turning on the server
 var server = app.listen(3000, function () {
-	var host = server.address().address;
-	var port = server.address().port;
-
-	console.log('Example app listening at http://%s:%s', host, port);
+	console.log('I am alive!');
 });
