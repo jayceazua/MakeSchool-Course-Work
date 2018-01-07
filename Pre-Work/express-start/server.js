@@ -2,6 +2,8 @@
 var express = require('express');
 // require a template engine
 var handlebars = require('express-handlebars');
+// initialize body parser
+var bodyParser = require('body-parser');
 // invoke the express
 var app = express();
 
@@ -9,6 +11,10 @@ var app = express();
 app.engine('handlebars', handlebars({defaultLayout: 'main'}));
 // declaring the view engine to "handlebars"
 app.set('view engine', 'handlebars');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 
 // Mock data
 var todos = [
@@ -31,6 +37,14 @@ app.get('/todos/:id', function (req, res) {
 	res.render('todo-show', {todo: todo})
 })
 // create
+app.post('/todos', function (req, res) {
+	// make the todo - this req.body is possible with bodyparser lets you submit form data
+	var todo = req.body;
+	// push it into the array at the end
+	todos.push(todo);
+	// tell us and show us if it went through
+	res.status(200).json(todo)
+})
 // delete
 // update
 // edit
