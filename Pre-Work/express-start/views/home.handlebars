@@ -1,4 +1,4 @@
-<h1>hello world</h1>
+<h1>Todo Tracker</h1>
 
 
 <form id="new-todo">
@@ -9,6 +9,9 @@
 
 <ul class="todo-list">
 	{{#each todos}}
-	<li>{{this.body}}</li>
+	<li>
+		<a href="/todos/{{this._id}}">{{this.body}}</a>
+		<button id="remove-todo" data-id="{{this._id}}">Remove</button>
+	</li>
 	{{/each}}
 </ul>
