@@ -57,7 +57,6 @@ app.post('/todos', function(req, res) {
 // delete
 app.delete('/todos/:id', function(req, res) {
 	Todo.findById(req.body.id).exec(function (err, todo) {
-
 		todo.remove();
 		console.log("Clicked remove");
 		res.status(200).json({});
@@ -71,3 +70,9 @@ app.delete('/todos/:id', function(req, res) {
 var server = app.listen(3000, function() {
     console.log('I am alive!');
 });
+
+
+
+
+
+
