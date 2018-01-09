@@ -69,3 +69,24 @@ fs.readdir(dir, function(err, lists) {
 
 /***********************************/
 // Learn you Node 6
+
+// module callback function
+/*
+    The variable mymodule is a function in itself
+*/
+
+var myModule = require('./myModule-LYN6');
+var dir = process.argv[2];
+var ext = process.argv[3];
+
+function callback(err, list) {
+    if (err)
+        throw err;
+
+    list.forEach(function(file) {
+        console.log(file);
+    });
+}
+
+// this method is in another file
+myModule(dir, ext, callback);
