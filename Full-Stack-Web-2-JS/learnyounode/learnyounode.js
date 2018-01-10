@@ -74,7 +74,7 @@ fs.readdir(dir, function(err, lists) {
 /*
     The variable mymodule is a function in itself
 */
-
+/*
 var myModule = require('./myModule-LYN6');
 var dir = process.argv[2];
 var ext = process.argv[3];
@@ -90,3 +90,26 @@ function callback(err, list) {
 
 // this method is in another file
 myModule(dir, ext, callback);
+*/
+/***********************************/
+/* Learn you Node 7 
+// requiring the http module
+var http = require('http');
+// given url link
+var url = process.argv[2];
+
+
+http.get(url, function(res) {
+	// set the encoding into utf8 so the response data comes back into a String
+	res.setEncoding('utf8');
+	res.on('data', function(data) {
+		console.log(data);
+	});
+
+});
+*/
+/***********************************/
+/* Learn you Node 8 */
+
+
+
