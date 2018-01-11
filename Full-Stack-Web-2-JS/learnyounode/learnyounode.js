@@ -109,7 +109,25 @@ http.get(url, function(res) {
 });
 */
 /***********************************/
-/* Learn you Node 8 */
+/* Learn you Node 8 
 
+var http = require("http");
+var bl = require("bl");
+var url = process.argv[2];
+
+http.get(url, function(res) {
+	// res.setEncoding("utf8");
+	res.pipe(bl(function (err, data) {
+		if (err) throw err;
+// convert from a Buffer
+		data = data.toString();
+		console.log(data.length);
+		console.log(data)
+	}))
+
+});
+*/
+/***********************************/
+/* Learn you Node 9 */
 
 
