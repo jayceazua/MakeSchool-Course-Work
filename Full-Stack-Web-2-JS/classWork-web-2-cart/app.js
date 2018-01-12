@@ -1,10 +1,8 @@
 var cart = [];
-
 // function to save cart
 var saveCart = function (cart) {
 	saved = [];
 	return saved.concat(cart);
-
 }
 // function to return the total cost
 function returnTotalCost () {
@@ -15,13 +13,10 @@ function returnTotalCost () {
 	}	
 	return total;
 }
-
-
 // addItem 
 function addItem(name, description, quantity, price, id) {
 	cart.push(new NewItem(name, description, quantity, price, id))
 }
-
 // addOneItem <-- Increases qty of item id +1
 function addOneItem (item) {
 	return item.quantity++
@@ -42,10 +37,6 @@ function getCartCount() {
 	}
 	return total
 }
-
-
-
-
 // Define a new item
 function NewItem(name, description, quantity, price, id) {
 	this.name = name;
@@ -54,11 +45,6 @@ function NewItem(name, description, quantity, price, id) {
 	this.price = price;
 	this.id = id
 }
-
-
 // mock item data
 var rubberDuck = addItem('Rubber Duck', 'A rubber duck to float on your bathtub.', 3, 5.75, 'RD0001');
 var tigerToy = addItem('Tiger Stuffed Animal', 'A stuffed animal that looks like tiger.', 2, 10.99, 'TT0002');
-
-
-
