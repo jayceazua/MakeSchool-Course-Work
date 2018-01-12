@@ -7,7 +7,7 @@
 // var total = 0;
 
 // for (var i = 2; i < process.argv.length; i++) {
-// 	total += Number(process.argv[i])
+//  total += Number(process.argv[i])
 // }
 
 // console.log(total);
@@ -28,9 +28,9 @@
 
 // fs.readFile(filePath, 'utf8', function(err, data) {
 
-// 	if (err) throw err;
+//  if (err) throw err;
 
-// 	console.log(data.split('\n').length - 1);
+//  console.log(data.split('\n').length - 1);
 
 // })
 
@@ -50,19 +50,19 @@ fs.readdir(dir, function(err, lists) {
     // error-first callback
     if (err) throw err;
 
-	// long way
+    // long way
 
     for (var i = 0; i < lists.length; i++) {
         if (path.extname(lists[i]) === fileExt) {
-        	console.log(lists[i]);
+            console.log(lists[i]);
         }
     }
 
     // .forEach()
     lists.forEach(function(list) {
-    	if (path.extname(list) === fileExt) {
-    		console.log(list)
-    	}
+        if (path.extname(list) === fileExt) {
+            console.log(list)
+        }
     });
 });
 */
@@ -100,11 +100,11 @@ var url = process.argv[2];
 
 
 http.get(url, function(res) {
-	// set the encoding into utf8 so the response data comes back into a String
-	res.setEncoding('utf8');
-	res.on('data', function(data) {
-		console.log(data);
-	});
+    // set the encoding into utf8 so the response data comes back into a String
+    res.setEncoding('utf8');
+    res.on('data', function(data) {
+        console.log(data);
+    });
 
 });
 */
@@ -116,18 +116,94 @@ var bl = require("bl");
 var url = process.argv[2];
 
 http.get(url, function(res) {
-	// res.setEncoding("utf8");
-	res.pipe(bl(function (err, data) {
-		if (err) throw err;
+    // res.setEncoding("utf8");
+    res.pipe(bl(function (err, data) {
+        if (err) throw err;
 // convert from a Buffer
-		data = data.toString();
-		console.log(data.length);
-		console.log(data)
-	}))
+        data = data.toString();
+        console.log(data.length);
+        console.log(data)
+    }))
 
 });
 */
 /***********************************/
-/* Learn you Node 9 */
+/* Learn you Node 9
 
+var http = require("http");
+var bl = require("bl");
+
+for (var i = 0; i < process.argv.length; i++) {
+    getResults(process.argv[i]);
+}
+
+
+// print results individually
+function getResults(url) {
+
+    http.get(url, function(res) {
+        res.pipe(bl(function(err, data) {
+            if (err) throw err;
+            data = data.toString();
+            console.log(data);
+        }));
+    });
+}
+*/
+
+/***********************************/
+/* Learn you Node 10 
+// creating a TCP Server
+
+// YYYY-MM-DD \n
+
+var port = Number(process.argv[2]);
+var net = require('net');
+
+function zeroFill (i) {
+    return (i < 10 ? "0" : "") + i;
+}
+
+function now() {
+    var d = new Date();
+
+    return d.getFullYear() + "-" +
+       zeroFill(d.getMonth() + 1) + "-" +
+       zeroFill(d.getDate()) + " " +
+       zeroFill(d.getHours()) + ":" +
+       zeroFill(d.getMinutes())
+}
+
+
+var server = net.createServer(function(socket) {
+    socket.end(now() + "\n");
+});
+
+server.listen(port);
+*/
+
+/***********************************/
+/* Learn you Node 11 
+
+var http = require("http");
+var fs = require("fs");
+var port = process.argv[2];
+// var file = process.argv[3];
+
+
+// create an http server; that can talk http
+var server = http.createServer(function(req, res) {
+    // req is used to fetch properties such as the header, and query-string
+    // res is for sending data to the client, both headers and body
+    // both are Node Streams
+    res.writeHead(200, {'content-type': 'text/plain' });
+// stream the file contents to the response
+    fs.createReadStream(process.argv[3]).pipe(res)
+});
+
+server.listen(port)
+*/
+
+/***********************************/
+/* Learn you Node 12 */
 
