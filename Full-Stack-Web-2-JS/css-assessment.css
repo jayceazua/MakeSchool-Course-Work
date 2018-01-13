@@ -1,0 +1,45 @@
+body {
+	font-family: Helvetica;
+}
+
+thead {
+	color: white;
+	background-color: black;
+}
+
+tbody tr:nth-child(even) {
+	background-color: lightblue;
+}
+
+tbody td:nth-child(3) {
+	text-align: center;
+}
+
+
+tbody td:nth-child(2):before {
+	content: "$";
+}
+
+tbody tr:nth-last-child(1) td:nth-child(2):before {
+	content: "";
+}
+
+tbody td:nth-child(4):before {
+	content: "$";
+}
+
+tbody td:nth-child(4) {
+	text-align: right;
+}
+
+input[type=button] {
+	color: white;
+}
+
+input[value=submit] {
+	background-color: green;
+}
+
+input[value=clear] {
+	background-color: red;
+}
