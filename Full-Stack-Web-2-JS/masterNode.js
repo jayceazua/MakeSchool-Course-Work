@@ -1,13 +1,17 @@
 // calling a native node module 
-var http = require("http");
+import http from 'http'
 
-var fs = require("fs");
+import fs from 'fs'
 // using utf basically turns the buffer into readable text 
 var myReadStream = fs.createReadStream('./MOCK_DATA.csv', 'utf8');
 
 var myWriteStream = fs.createWriteStream('./write.csv');
 
-myWriteStream.on('data', function(chunk) {
-	console.log('new chunk received!');
-	myWriteStream.write(chunk);
-});
+// piping it into a write stream
+myReadStream.pipe(myWriteStream)
+
+/* this is manual event listener  */
+// myWriteStream.on('data', (chunk) => {
+// 	console.log('new chunk received!');
+// 	myWriteStream.write(chunk);
+// });
