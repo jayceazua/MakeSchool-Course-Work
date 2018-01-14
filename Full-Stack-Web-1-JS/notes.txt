@@ -1,0 +1,8 @@
+Separation of Concerns - break code into by Concerns or area of functionality in order to simplify the process of writing web servers. 
+"keep code together that do the same thing"
+
+Convention over Configuration - so that our code is standardized and recognizable. Do not depart from conventions.
+
+----
+
+We need to define a root route, a route for the path '/'
