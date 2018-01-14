@@ -9,4 +9,8 @@ Convention over Configuration - so that our code is standardized and recognizabl
 
 * ExpressJS is a light weight or unopinionated web framework, meaning it does not make decisions for you, it lets the developer decide on what plugins to use. These plugins or libraries we use to extend a web framework are called 'middleware'
 
-* Handlebars - to use this in the context of ExpressJS we use the 'express-handlebars' library
+* Handlebars - to use this in the context of ExpressJS we use the 'express-handlebars' library.
+
+----
+URL = Unicode Resource Locator
+protocol://subdomain.domain.topleveldomain/directory?parameter=awesome
