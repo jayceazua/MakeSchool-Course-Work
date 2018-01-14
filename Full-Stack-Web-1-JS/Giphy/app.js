@@ -1,4 +1,6 @@
 var http = require("http");
+// init the Giphy-API lib and invoke the module
+var giphy = require("giphy-api")();
 var express = require("express");
 var app = express();
 
@@ -8,6 +10,15 @@ var exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+// refactoring code - makes it look more elegant
+app.get('/', function (req, res) {
+  giphy.search(req.query.term, function (err, response) {
+    res.render('home', {gifs: response.data})
+  });
+});
+
+/*
+** We are using Node's native http module **
 app.get('/', function (req, res) {
   var queryString = req.query.term;
   // ENCODE THE QUERY STRING TO REMOVE WHITE SPACES AND RESTRICTED CHARACTERS
@@ -22,7 +33,7 @@ app.get('/', function (req, res) {
     var body = '';
 
     response.on('data', function(d) {
-    	
+
       // CONTINUOUSLY UPDATE STREAM WITH DATA FROM GIPHY
       body += d;
     });
@@ -35,6 +46,8 @@ app.get('/', function (req, res) {
     });
   });
 })
+*/
+
 
 app.get('/hello-gif', function(request, response) {
 	var gifUrl = "https://media.giphy.com/media/B77Yj3aZYZjmE/giphy.gif"
