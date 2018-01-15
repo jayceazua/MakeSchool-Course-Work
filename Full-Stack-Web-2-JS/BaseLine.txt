@@ -1,0 +1,29 @@
+---- Baseline Challenges ----
+
+List out the HTTP action verbs. Which ones make changes to the state, and which ones do not?
+A:
+CRUD === Create, Read, Update, Delete four basic functions of persistent storage. 
+
+
+
+What are HTTP response status codes? Which ones mean success and which failure?
+A: 
+1xx === informational
+2xx === Ok/ Success
+3xx === redirection
+4xx === Client Error
+5xx === Server Error
+
+What is the difference between HTTP and HTTPS?
+A:
+HTTP is through TCP over IP, while HTTPS is HTTP over TLS and with a SSL Certificate Identity. HTTP is not encrypted while HTTPS is secured and encrypted for sensitive data. TLS is a Transport Layer Security that provides privacy and data integity between two communicating applications. Also used in file transfers, VPN connections, instant messaging and VoIP. TLS is more secured than SSL. TLS/ SSL is not interoperable. 
+
+What does REST stand for?
+A:
+REpresentational State Transfer
+
+What are the reasons to use a "RESTful" server?
+A:
+A way of providing inteoperability between computer systems on the internet. RESTful system aim for fast performance, reliability, and the ability to grow, by re-using components that can be managed and updated without affecting the system as a whole, even while it is running.
+
+What are the constraints of a RESTful server?
