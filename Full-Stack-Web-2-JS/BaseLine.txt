@@ -4,6 +4,23 @@ List out the HTTP action verbs. Which ones make changes to the state, and which 
 A:
 CRUD === Create, Read, Update, Delete four basic functions of persistent storage. 
 
+GET - request representation of specified resources. Retrieve data and should have no other effect. (safe method: does not effect the state)
+
+HEAD - same as the GET request but without a response body. Useful for Meta-information written in response headers, without having to transport the entire content. (safe method: does not effect the state)
+
+POST - requests that the server accept the entity enclosed in the request as a subordinate of the web resource indentified by the URI. By web-form to a data-handling process; or an item to add a database.
+
+PUT - requests that the enclosed entity be stored under the supplied URI. If the URI refers to an already existing resources, it is modified; if the URI does not point to an existing resource, then the server can create the resource with that URI.
+
+DELETE - deletes the specified resources
+
+TRACE - echoes the received request so that a client can see what (if any) changes or additions have been made by intermediate servers. (safe method: does not effect the state); used as part of a class of attacks known as cross-site tracing - disable in the server configuration for security purpose.
+
+OPTIONS - returns the HTTP methods that the server supports for the specified URL. This can be used to check the functionality of a web server by requesting instead of a specified resource. (safe method: does not effect the state)
+
+CONNECT - converts the request connection to a transparent TCP/IP tunnel, usually to facilitate SSL-encrpted communication (HTTPS) through an unencrypted HTTP proxy.
+
+PATCH - applies partial modifications to a resources
 
 
 What are HTTP response status codes? Which ones mean success and which failure?
@@ -27,3 +44,29 @@ A:
 A way of providing inteoperability between computer systems on the internet. RESTful system aim for fast performance, reliability, and the ability to grow, by re-using components that can be managed and updated without affecting the system as a whole, even while it is running.
 
 What are the constraints of a RESTful server?
+A:
+Operate within these constraints; non-functional properities:
+Performance, scalability, simplicity, modifiability, visibility, portability, and reliability.
+
+There are 6 guided contraints of RESTful:
+
+1. Client-Server Architecture:
+    - separation of concerns;
+    separating the user interface concerns from the data storage concerns improves the portability of the user interface across multiple platforms.
+    Also improves scalabilityby simplifying the server components.
+    This allows components to evolve independently thus supporting internet-scale requirement of multiple organizational domains.
+
+2. Statelessness:
+   - no client context being stored on the server between requests. Session State can be transferred by the server to another service such as a database to maintaina persistent state for a period and allow authentication. Client begins sending requests when it is ready to make transition to a new state. The representation of each application state contains links that may be used the next time the client chooses to initiate a new state-transition.
+
+3. Cacheability:
+   - cache responses. Responses must therefore implicitly or explicitly, define themselves as cacheable or not prevent clients from reusing stale or inappropriate data in response to further requests. Improving scalability and performance by eliminating some client-server interactions.
+
+4. Layered System:
+   - client cannot ordinarily tell whether it is connected directly to the end server, or to an intermediary along the way. Intermediary Servers may improve system scalability by enabling load balancing and by providing shared caches. Enforce security policies.
+
+5. Code on Demand (optional):
+   - servers temporarily extend or customize the functionality of a client by transferring executable code.
+
+6. Uniform Interface:
+   - URI in web-based REST systems. 
