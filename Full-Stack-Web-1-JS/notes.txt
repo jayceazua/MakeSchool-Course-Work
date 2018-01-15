@@ -56,6 +56,16 @@ What does REST stand for?
 A:
 REpresentational State Transfer
 
+How "State" is stored. 
+REST - client remembers everything it needs
+	 passes this to the server when it wants to get something done
+	 the server doesn't need to remember anything about the client
+REST uses HTTP protocol verbs. 
+URL structure is based represents data
+Hypermedia Responses (XML)
+Does not remember state on the server
+
+
 What are the reasons to use a "RESTful" server?
 A:
 A way of providing inteoperability between computer systems on the internet. RESTful system aim for fast performance, reliability, and the ability to grow, by re-using components that can be managed and updated without affecting the system as a whole, even while it is running.
