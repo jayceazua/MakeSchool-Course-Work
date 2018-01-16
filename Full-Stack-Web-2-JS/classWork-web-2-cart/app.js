@@ -1,4 +1,6 @@
+
 var cart = [];
+
 // function to save cart
 var saveCart = function (cart) {
 	saved = [];
@@ -13,9 +15,9 @@ function returnTotalCost () {
 	}	
 	return total;
 }
-// addItem 
-function addItem(name, description, quantity, price, id) {
-	cart.push(new NewItem(name, description, quantity, price, id))
+// create and add item
+function addItem(name, quantity, price, id) {
+	cart.push(new NewItem(name, quantity, price, id))
 }
 // addOneItem <-- Increases qty of item id +1
 function addOneItem (item) {
@@ -23,7 +25,15 @@ function addOneItem (item) {
 }
 // removeOneItem <-- Decreases qty of item id -1
 function removeOneItem (item) {
-	return item.quantity--
+	if (item.quantity === 0) {
+		var removeItem = cart.indexOf(item);
+		if(removeItem > -1)
+		cart.splice(removeItem, 1);
+
+	} else {
+	    return item.quantity--	
+	}
+	
 }
 // clearCart <-- removes all items from cart
 function clearCart () {
@@ -37,14 +47,15 @@ function getCartCount() {
 	}
 	return total
 }
+
 // Define a new item
-function NewItem(name, description, quantity, price, id) {
+function NewItem(name, quantity, price, id) {
 	this.name = name;
-	this.description = description;
 	this.quantity = quantity;
 	this.price = price;
 	this.id = id
 }
+
 // mock item data
-var rubberDuck = addItem('Rubber Duck', 'A rubber duck to float on your bathtub.', 3, 5.75, 'RD0001');
-var tigerToy = addItem('Tiger Stuffed Animal', 'A stuffed animal that looks like tiger.', 2, 10.99, 'TT0002');
+var rubberDuck = addItem('Rubber Duck', 3, 5.75, 'RD0001');
+var tigerToy = addItem('Tiger Stuffed Animal', 2, 10.99, 'TT0002');

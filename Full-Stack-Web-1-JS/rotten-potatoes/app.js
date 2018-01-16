@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override')
 const app = express();
 const exphbs = require('express-handlebars');
 /* Accepting form data  
@@ -14,7 +15,8 @@ const mongoose = require('mongoose');
 // create view templates
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
-
+// .use() allows us to use a new middleware and this allows us override with POST having ?_method=DELETE or ?_method=PUT
+app.use(methodOverride('_method'))
 // this line must appear after app and before the routes
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -29,41 +31,66 @@ const Review = mongoose.model('Reviews', {
 	rating: Number
 })
 
-// Home
-app.get('/', function(req, res) {
-	// .render() references to render view templates
-	res.render('home', { msg: 'Connected correctly!' });
-});
-
-// Index
-app.get('/reviews', function(req, res) {
-	// find method returns a promise
-	Review.find().then(function(reviews) {
-	   res.render('reviews-index', { reviews })
-	   // use a catch method just incase the promise is rejected
-	}).catch(function(err) {
-		console.log(err);
-	})
+// INDEX
+app.get('/', (req, res) => {
+  Review.find().then((reviews) => {
+    res.render('reviews-index', {reviews: reviews});
+  }).catch((err) => {
+    console.log(err);
+  })
 })
 
-// New
-app.get('/reviews/new', function(req, res) {
-	res.render('reviews-new', {})
+// NEW
+app.get('/reviews/new', (req, res) => {
+  res.render('reviews-new', {});
 })
 
-// Create
-app.post('/reviews', function(req, res) {
-	Review.create(req.body).then(function(review) {
-		console.log(review);
-		// after the review is created redirect to the root to see our new review
-		res.redirect('/reviews');
-	}).catch(function(err) {
-		console.log(err.message)
-	})
+// CREATE
+app.post('/reviews', (req, res) => {
+  Review.create(req.body).then((review) => {
+    console.log(review)
+    res.redirect('/reviews/' + review._id) // Redirect to reviews/:id
+  }).catch((err) => {
+    console.log(err.message)
+  })
+})
+
+// SHOW
+app.get('/reviews/:id', (req, res) => {
+  Review.findById(req.params.id).then((review) => {
+    res.render('reviews-show', { review: review })
+  }).catch((err) => {
+    console.log(err.message);
+  })
 })
 
 
+// EDIT
+app.get('/reviews/:id/edit', function (req, res) {
+  Review.findById(req.params.id, function(err, review) {
+    res.render('reviews-edit', {review: review});
+  })
+})
 
+// UPDATE
+app.put('/reviews/:id', (req, res) => {
+  Review.findByIdAndUpdate(req.params.id, req.body).then((review) => {
+    res.redirect('/reviews/' + review._id)
+  }).catch((err) => {
+    console.log(err.message)
+  })
+})
+
+
+// DELETE
+app.delete('/reviews/:id', function (req, res) {
+  console.log("DELETE review")
+  Review.findByIdAndRemove(req.params.id).then((review) => {
+    res.redirect('/');
+  }).catch((err) => {
+    console.log(err.message);
+  })
+})
 
 
 // start server
