@@ -10,5 +10,13 @@
     <p><form method="POST" action="/reviews/{{review._id}}?_method=DELETE">
         <button class="btn btn-primary" type="submit">Delete</button>
     </form></p>
+
+    {{!-- Comment Form --}}
+    {{> comment-form }}
+    <hr>
+        {{!-- Show Comments --}}
+        {{#each comments}}
+            {{> comment}}
+        {{/each}}
   </div>
 </div>

@@ -7,6 +7,8 @@ const exphbs = require('express-handlebars');
 	body-parser gives us a new attribute of the req object called req.body
 	and this contain the form data
 */
+const Comment = require('./models/comment');
+const Review = require('./models/review')
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;
 // initialize mongoose
@@ -21,7 +23,7 @@ app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // connecting to a database
-mongoose.connect('mongodb://localhost/rotten-potatoes', 
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', 
 	{ useMongoClient: true });
 // making a model
 const Review = mongoose.model('Reviews', {
@@ -89,6 +91,15 @@ app.delete('/reviews/:id', function (req, res) {
     res.redirect('/');
   }).catch((err) => {
     console.log(err.message);
+  })
+})
+
+// NEW Comment
+app.post('/reviews/comment', function(req, res) {
+  Comment.create(req.body).then(function(comment) {
+    res.redirect('/reviews/' + comment.reviewId)
+  }).catch(function(err) {
+    console.log(err.message)
   })
 })
 
