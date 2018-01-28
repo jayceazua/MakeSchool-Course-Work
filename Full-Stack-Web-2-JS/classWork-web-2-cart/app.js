@@ -1,5 +1,3 @@
-
-
 var cart = [];
 // function to save cart
 var saveCart = function (cart) {
@@ -14,11 +12,11 @@ function returnTotalCost () {
 	for (var i = 0; i < cart.length; i++) {
 		// Should total price be item price be price * qty
 		total += (cart[i].price * cart[i].quantity)
-	}	
+	}
 	return total;
 }
 
-// addItem 
+// addItem
 function addItem(name, quantity, price, id) {
 	cart.push(new NewItem(name, description, quantity, price, id))
 }
@@ -54,5 +52,3 @@ function NewItem(name, quantity, price, id) {
 // mock item data
 var rubberDuck = addItem('Rubber Duck', 'A rubber duck to float on your bathtub.', 3, 5.75, 'RD0001');
 var tigerToy = addItem('Tiger Stuffed Animal', 'A stuffed animal that looks like tiger.', 2, 10.99, 'TT0002');
-
-
