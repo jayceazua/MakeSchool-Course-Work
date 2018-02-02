@@ -7,6 +7,8 @@ const exphbs = require('express-handlebars');
 	body-parser gives us a new attribute of the req object called req.body
 	and this contain the form data
 */
+
+// database models
 const Comment = require('./models/comment');
 const Review = require('./models/review')
 const bodyParser = require('body-parser');
@@ -68,7 +70,6 @@ app.get('/reviews/:id', (req, res) => {
     console.log(err.message);
   })
 })
-
 
 // EDIT
 app.get('/reviews/:id/edit', function (req, res) {
