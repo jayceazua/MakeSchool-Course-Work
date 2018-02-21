@@ -2,19 +2,25 @@ const express = require('express');
 const methodOverride = require('method-override')
 const app = express();
 const exphbs = require('express-handlebars');
+// initialize mongoose
+const mongoose = require('mongoose');
 /* Accepting form data  
 	init body-parser and add it to app
 	body-parser gives us a new attribute of the req object called req.body
 	and this contain the form data
 */
 
+// connecting to a database
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', 
+	{ useMongoClient: true });
+
+
+
 // database models
 const Comment = require('./models/comment');
 const Review = require('./models/review')
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;
-// initialize mongoose
-const mongoose = require('mongoose');
 
 // create view templates
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -24,9 +30,8 @@ app.use(methodOverride('_method'))
 // this line must appear after app and before the routes
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// connecting to a database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', 
-	{ useMongoClient: true });
+
+/*
 // making a model
 const Review = mongoose.model('Reviews', {
 	title: String,
@@ -34,6 +39,7 @@ const Review = mongoose.model('Reviews', {
 	movieTitle: String,
 	rating: Number
 })
+*/
 
 // INDEX
 app.get('/', (req, res) => {
