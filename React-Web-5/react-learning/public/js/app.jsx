@@ -96,6 +96,22 @@ Instead "lift it up" to their closest shared ancestor, and pass it down as
 */
 
 // Presentational Component - takes props and renders it to the client.
+class GreeterMessage extends React.Component {
+  render () {
+
+    var name = this.props.name;
+    var message = this.props.message
+
+    return (
+      <div>
+        <h1>Hello, {name}!</h1>
+      <p>{message}</p>
+      </div>
+    );
+  }
+}
+
+/*
 var GreeterMessage = React.createClass({
   render: function () {
 
@@ -110,9 +126,55 @@ var GreeterMessage = React.createClass({
     );
   }
 });
+*/
 
+
+class GreeterForm extends React.Component {
+    constructor(props) {
+      super(props);
+      this.onFormSubmit = this.onFormSubmit.bind(this)
+    }
+
+    onFormSubmit(e) {
+      e.preventDefault();
+
+      var updates = {};
+      var name = this.refs.name.value;
+      var message = this.refs.message.value
+
+      if (name.length > 0) {
+        this.refs.name.value = '';
+        updates.name = name;
+      }
+
+      if (message.length > 0) {
+        this.refs.message.value = '';
+        updates.message = message
+      }
+      // this passes it up the chain 'lifting state' to its parent to handle
+      this.props.onNewData(updates);
+    }
+
+    render () {
+      return (
+        <form onSubmit={this.onFormSubmit}>
+          <div>
+            <input type="text" ref="name" placeholder="Enter Name" />
+          </div>
+          <div>
+            <textarea ref="message" placeholder="Enter Message" ></textarea>
+          </div>
+          <div>
+            <button>Submit</button>
+          </div>
+        </form>
+      );
+    }
+}
+
+/*
 var GreeterForm = React.createClass({
-  /* Does not maintain its own 'state' */
+
   onFormSubmit: function(e) {
     e.preventDefault();
 
@@ -152,7 +214,51 @@ var GreeterForm = React.createClass({
   }
 
 });
+*/
 
+
+class Greeter extends React.Component {
+  constructor(props) {
+    super(props);
+    // same as getInitialState
+    this.state = {
+      name: props.name,
+      message: props.message
+    };
+    this.handleNewData = this.handleNewData.bind(this);
+  }
+
+  handleNewData (updates) {
+    this.setState(updates)
+  }
+
+  render() {
+    let name = this.state.name;
+    let message = this.state.message
+
+    return (
+      <div>
+        <GreeterMessage name={name} message={message} />
+        <GreeterForm onNewData={this.handleNewData} />
+      </div>
+    )
+  }
+}
+
+// you have define it out of the class constructor - getDefaultProps method
+Greeter.defaultProps = {
+  name: 'React',
+  message: 'This is the default message.'
+}
+
+// >> Review .propTypes
+Greeter.propTypes = {
+  name: React.PropTypes.string,
+  message: React.PropTypes.string
+}
+
+
+/*
 // >> classical example of a container component that maintains state.
 var Greeter = React.createClass({
   getDefaultProps: function() {
@@ -187,6 +293,56 @@ var Greeter = React.createClass({
 
 })
 
+*/
+
+/* Practice for classes  - Object Oriented Programming/ Functional Programming */
+/*
+class Person {
+  // body of the class is defined...
+// constructor function is automatically called when you make a new instance of a class.
+  constructor(name = 'Anonymous', age = 0) {
+    this.name = name,
+    this.age = age
+  }
+  getGreeting() {
+    return `Welcome, ${this.name}.`
+  }
+  toString() {
+    return JSON.stringify(this)
+  }
+  // getDescription
+  getDescription() {
+    return `${this.name} is ${this.age} years old.`
+  }
+}
+
+// extends keyword inherits all the properties and methods from the class you are extending from
+class Child extends Person {
+  constructor(name, age, like) {
+    // set the parents functions properties by calling its constructors' function
+    // call parents' constructors function - using super()
+    super(name, age);
+    this.like = like
+  }
+  getGreeting() {
+    return `Hiii!! My name is ${this.name} and I like ${this.like}.`
+  }
+
+}
+
+class Baby extends Person {
+// no need to call the constructor function with the super function since we ar not overriding any properties.
+  getGreeting() {
+    return `wahhhhh !!!`
+  }
+}
+
+// call it as a function.
+// ... arguments passed are available in the constructor functions
+var me = new Baby('Jayce', 0.9);
+*/
+
+/*=================================================*/
 ReactDOM.render(
     <Greeter />, // <- main container component.
   document.getElementById('root')
