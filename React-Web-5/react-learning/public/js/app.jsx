@@ -1,254 +1,3 @@
-// Building a component:
-function Welcome(props) {
-  return (
-    <h1>
-      Hello, {props.name}
-    </h1>
-  )
-}
-
-
-// Ex: How Components refer to other Components
-function App() {
-  return (
-    <div>
-      <Welcome name="Jayce"/>
-    <Welcome name="Roan"/>
-      <Welcome name="Mike"/>
-    </div>
-  )
-}
-
-// Extract UserInfo component - that renders an Avatar next to the user's name
-function UserInfo(props) {
-  return (
-    <div className="UserInfo">
-      // Extracted and placed into the UserInfo component
-      <Avatar user={props.user} />
-      <div className="UserInfo-name">
-        {props.user.name}
-      </div>
-
-    </div>
-  )
-}
-
-// Extract Avatar from Comment component
-function Avatar(props) {
-  /*
-    The Avatar does not need to know that it is being rendered inside a Comment.
-    >> This is why we have given its prop a more generic name:
-        user rather than author.
-    Recommended naming props from the component's own point of view,
-      rather than the context in which it is being used.
-  */
-  return (
-    <img className="Avatar"
-      src={props.user.avatarUrl}
-      alt={props.user.name}
-    />
-  )
-}
-
-// Comments Component
-function Comment(props) {
-  /*
-    This component can be tricky to change because of all the nesting,
-     and it is also hard to reuse individual parts of it.
-     Let’s extract a few components from it.
-  */
-  return (
-
-    <div className="Comment"> // Start of wrapper div
-      // Another Component
-      <UserInfo user={props.author} />
-
-      <div className="Comment-text">
-        {props.text}
-      </div>
-
-      <div className="Comment-date">
-        {formatDate(props.date)}
-      </div>
-
-    </div> // End of wrapper div
-  );
-}
-
-
-
-/*
-Props is a way to pass data into a component when you first start it.
-
-
-A good rule of thumb is that if a part of your UI is used several times
-(Button, Panel, Avatar),
-or is complex enough on its own
-(App, FeedStory, Comment),
-it is a good candidate to be a reusable component.
-
->> A component must never modify its own props.! <<
-
->> These are called "pure" function:
-
-function sum(a, b) {
-  return a + b;
-}
-
->> Impure function
-function withdraw(account, amount) {
-  acount.total -= amount;
-}
-
-Strict Rule of React:
- >> All React components must act like pure functions
-    with respect to their props.
-
-State -  allows React components to change their output over
-time in response to user actions, network responses, and anything else,
-without violating this rule.
-
-*/
-
-class Clock extends React.Component {
-// React will call this constructor
-  constructor(props) {
-    super(props);
-    //it initializes this.state with an object including the current time.
-    this.state = {date: new Date()};
-  }
-
-  // >> Set up a timer whenever Clock is rendered to the DOM for the first time.
-  //>> lifecycle hooks
-  componentDidMount() {
-    //>> we save the timerId on this
-    this.timerID = setInterval( () => this.tick(), 1000)
-  }
-  // >> Clear that timer when DOM produced by Clock is removed.
-  //>> lifecycle hooks
-  componentWillUnmount() {
-    //>> if the clock component is ever removed React will call the componentWillUnmount
-    //so the timer is stopped.
-    clearInterval(this.timerID)
-  }
-//every second the browser calls the tick method
-  tick() {
-    //Clock component schedules a UI update by calling setState
-    this.setState({
-    //with an object containing the current time
-      date: new Date()
-    })
-  }
-// React will later call this method - this tells React what to display from
-//>> this component.
-  render() {
-    // calls this render method several times over and over
-    // to know what it should display on the screen.
-    return (
-      <div>
-        <h1>Hello, world!</h1>
-      //the this.state.date will be different and the render output will include
-      //the updated time. - it will continue to update the DOM accordingly
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-      </div>
-    );
-  }
-
-}
-
-
-function tick() {
-  ReactDOM.render(
-    <Clock />,
-    document.getElementById('root')
-  );
-}
-
-setInterval(tick, 1000);
-
-/*
-// Render to the UI
-ReactDOM.render(
-  ,
-document.getElementById('root')
-)
-
-State is similar to props, but it is private
-and fully controled by the component
-
-Local State is a feature available only to classes.
-
-/*
-// Introducing JSX
-function formatName(user) {
-  return user.firstName + " " + user.lastName
-}
-
-const user = {
-  firstName: 'Jayce',
-  lastName: "Azua"
-}
-
-
-function getGreeting(user) {
-  if (user) {
-    return (
-      <h1> Hello, {formatName(user)}! </h1>
-    )
-  }
-  return (
-    <h1> Hello, Stranger </h1>
-  )
-}
-
-// Components are literally JavaScript functions
-function Welcome(props) {
-  return (
-    <h1>
-      Hello, {props.name}.
-    </h1>
-  )
-}
-/*
-// Same as above just written in ES6
-class Welcome extends React.Component {
-  render() {
-    return (
-      <h1>
-        Hello, {props.name}.
-      </h1>
-    )
-  }
-}
-
-const element = <Welcome name="Roan"/>
-// Rendering a Component
-
-ReactDOM.render(
-  // user-defined components
-  element,
-  document.getElementById('root')
-);
-
-/*
-function tick() {
-  const element = (
-    <div>
-      <h1>
-        Hello, {formatName(user)}!
-      </h1>
-      <h2> It is {new Date().toLocaleTimeString()}.</h2>
-    </div>
-  )
-
-  ReactDOM.render(
-  element,
-    document.getElementById('root')
-  )
-}
-
-setInterval(tick, 1000)
-*/
 /* NOTES:
 
 Separation of Concerns:
@@ -267,10 +16,9 @@ React Components:
  >> Components are reusable, composable, units.
 Keep your components small.
 
-When the data changes, React re-renders the entire component.
 
 
-JSX represents objects >> babel complies JSX down to React.createElment() calls
+JSX represents objects >> babel complies JSX down to React.createElement() calls
 
 React Elements are immutable: you can't change it's children or attributes.
 Only updates what is necessary.
@@ -285,4 +33,161 @@ Components can refer to other Components in their output.
 
 >> Extracting Components <<
 Do not be afraid to split components into smaller Components.
+==============
+State is similar to props, but it is private
+and fully controled by the component
+
+Local State is a feature available only to classes.
+
+Strict Rule of React:
+ >> All React components must act like pure functions
+    with respect to their props.
+
+State -  allows React components to change their output over
+time in response to user actions, network responses, and anything else,
+without violating this rule.
+
+Props is a way to pass data into a component when you first start it.
+
+A component may choose to pass its state down as props to its child components
+A component must never modify its own props!
+
+
+========== Perfected Notes ==========
+>>> Bundlers
+Bundlers take JS and CSS code written as separate modules,
+ and combine them together into a few files better optimized for browsers.
+- Research: Webpack or Browserify
+
+ >>> Elements
+Do not confuse elements with components.
+An element describes what you want to see on the screen.
+React elements are immutable.
+Typically, Elements are not used directly, instead get returned from components.
+
+>>> Components
+They are small, reusable pieces of code that return a React Element to be
+ rendered to the page
+Better to use ES6 Classes
+Components can return other components, arrays, strings, numbers.
+
+>>> Props
+They are inputs to a React component.
+Data passed down from a parent component to a child component.
+They should not be modified in any way.
+If you need to modify data in response to a user input, or a network response, use 'state' instead.
+props.children is available on every component.
+
+>>> State
+A component needs state when some data changes over time.
+The most important difference between state and props:
+  1. props are passed from a parent component
+  2. state is managed by the component itself
+  3. A component cannot change its props
+  4. Can change its state
+To do this:
+  call this.setState() - ** only components defined as classes can have state. **
+
+> For each particular piece of changing data,
+    there should be just one component that “owns” it in its state.
+Do not try to synchronize states of two different components.
+Instead "lift it up" to their closest shared ancestor, and pass it down as
+   props to both of them.
 */
+
+// Presentational Component - takes props and renders it to the client.
+var GreeterMessage = React.createClass({
+  render: function () {
+
+    var name = this.props.name;
+    var message = this.props.message;
+
+    return (
+      <div>
+        <h1>Hello, {name}!</h1>
+        <p>{message}</p>
+      </div>
+    );
+  }
+});
+
+var GreeterForm = React.createClass({
+  /* Does not maintain its own 'state' */
+  onFormSubmit: function(e) {
+    e.preventDefault();
+
+    var updates = {};
+    var name = this.refs.name.value;
+    var message = this.refs.message.value
+
+    if (name.length > 0) {
+      this.refs.name.value = '';
+      updates.name = name;
+    }
+
+    if (message.length > 0) {
+      this.refs.message.value = '';
+      updates.message = message
+    }
+
+    // this passes it up the chain 'lifting state' to its parent to handle
+    this.props.onNewData(updates);
+
+  },
+
+  render: function() {
+    return(
+      <form onSubmit={this.onFormSubmit}>
+        <div>
+          <input type="text" ref="name" placeholder="Enter Name" />
+        </div>
+        <div>
+          <textarea ref="message" placeholder="Enter Message" ></textarea>
+        </div>
+        <div>
+          <button>Submit</button>
+        </div>
+      </form>
+    );
+  }
+
+});
+
+// >> classical example of a container component that maintains state.
+var Greeter = React.createClass({
+  getDefaultProps: function() {
+    return {
+      name: 'React',
+      message: 'This is the default message.'
+    }
+  },
+
+  getInitialState: function() {
+    return {
+      name: this.props.name,
+      message: this.props.message
+    }
+  },
+
+  handleNewData: function(updates) {
+    this.setState(updates);
+  },
+
+  render: function() {
+    var name = this.state.name;
+    var message = this.state.message;
+
+    return (
+      <div>
+        <GreeterMessage name={name} message={message}/>
+        <GreeterForm onNewData={this.handleNewData}/>
+      </div>
+    )
+  }
+
+})
+
+ReactDOM.render(
+    <Greeter />, // <- main container component.
+  document.getElementById('root')
+)
