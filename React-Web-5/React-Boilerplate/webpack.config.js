@@ -6,7 +6,9 @@ module.exports = {
   },
   resolve: {
     root: __dirname,
-    alias: {},
+    alias: {
+
+    },
     extensions: ['', '.js', '.jsx']
   },
   module:{
@@ -14,7 +16,7 @@ module.exports = {
       {
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'env', 'stage-0']
         },
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
