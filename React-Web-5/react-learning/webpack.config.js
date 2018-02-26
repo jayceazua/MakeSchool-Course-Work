@@ -1,4 +1,5 @@
 module.exports = {
+  // the entry is where webpack starts compiling the bundle file
   entry: './public/js/app.jsx',
   output: {
     path: __dirname,
@@ -18,7 +19,7 @@ module.exports = {
       {
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'env']
         },
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
