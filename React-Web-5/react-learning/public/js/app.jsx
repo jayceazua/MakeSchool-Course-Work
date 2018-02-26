@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Greeter from '../components/Greeter';
+import Greeter from 'Greeter';
 
 /*========== ========== ========== ========== ==========*/
 ReactDOM.render(

@@ -1,6 +1,6 @@
 import React from 'react';
-import GreeterMessage from './GreeterMessage';
-import GreeterForm from './GreeterForm'
+import GreeterMessage from 'GreeterMessage';
+import GreeterForm from 'GreeterForm'
 
 // >> classical example of a container component that maintains state.
 class Greeter extends React.Component {
