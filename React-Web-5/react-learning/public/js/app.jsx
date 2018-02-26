@@ -1,106 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-// Presentational Component - takes props and renders it to the client.
-class GreeterMessage extends React.Component {
-  render () {
-
-    var name = this.props.name;
-    var message = this.props.message
-
-    return (
-      <div>
-        <h1>Hello, {name}!</h1>
-      <p>{message}</p>
-      </div>
-    );
-  }
-}
-
-class GreeterForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onFormSubmit = this.onFormSubmit.bind(this)
-  }
-
-  onFormSubmit(e) {
-    e.preventDefault();
-
-    var updates = {};
-    var name = this.refs.name.value;
-    var message = this.refs.message.value
-
-    if (name.length > 0) {
-      this.refs.name.value = '';
-      updates.name = name;
-    }
-
-    if (message.length > 0) {
-      this.refs.message.value = '';
-      updates.message = message
-    }
-    // this passes it up the chain 'lifting state' to its parent to handle
-    this.props.onNewData(updates);
-  }
-
-  render () {
-    return (
-      <form onSubmit={this.onFormSubmit}>
-        <div>
-          <input type="text" ref="name" placeholder="Enter Name" />
-        </div>
-        <div>
-          <textarea ref="message" placeholder="Enter Message" ></textarea>
-        </div>
-        <div>
-          <button>Submit</button>
-        </div>
-      </form>
-    );
-  }
-}
-
-
-
-// >> classical example of a container component that maintains state.
-class Greeter extends React.Component {
-  constructor(props) {
-    super(props);
-    // same as getInitialState
-    this.state = {
-      name: props.name,
-      message: props.message
-    };
-    // When defining a method you must bind it within the constructor function
-    this.handleNewData = this.handleNewData.bind(this);
-  }
-  // as the data changes you must use setState method to change the state accordingly
-  handleNewData (updates) {
-    this.setState(updates)
-  }
-  // This is a REQUIRED method every component has.
-  render() {
-    let name = this.state.name;
-    let message = this.state.message
-
-    return (
-      <div>
-        <GreeterMessage name={name} message={message} />
-        <GreeterForm onNewData={this.handleNewData} />
-      </div>
-    )
-  }
-}
-
-// you have define it out of the class constructor - getDefaultProps method
-Greeter.defaultProps = {
-  name: 'React',
-  message: 'This is the default message.'
-}
-
-// >> Review .propTypes
-Greeter.propTypes = {
-  name: React.PropTypes.string,
-  message: React.PropTypes.string
-}
+import Greeter from '../components/Greeter';
 
 /*========== ========== ========== ========== ==========*/
 ReactDOM.render(
@@ -110,101 +11,16 @@ ReactDOM.render(
 
 /*========== ========== ES5 Component Building ========== ==========*/
 /*
-var Greeter = React.createClass({
-  getDefaultProps: function() {
-    return {
-      name: 'React',
-      message: 'This is the default message.'
-    }
-  },
 
-  getInitialState: function() {
-    return {
-      name: this.props.name,
-      message: this.props.message
-    }
-  },
 
-  handleNewData: function(updates) {
-    this.setState(updates);
-  },
+>>> Webpack
+bundle third party dependencies.
+scaling separate files
 
-  render: function() {
-    var name = this.state.name;
-    var message = this.state.message;
 
-    return (
-      <div>
-        <GreeterMessage name={name} message={message}/>
-        <GreeterForm onNewData={this.handleNewData}/>
-      </div>
-    )
-  }
 
-})
+>>>
 
-*/
-
-/*
-var GreeterForm = React.createClass({
-
-  onFormSubmit: function(e) {
-    e.preventDefault();
-
-    var updates = {};
-    var name = this.refs.name.value;
-    var message = this.refs.message.value
-
-    if (name.length > 0) {
-      this.refs.name.value = '';
-      updates.name = name;
-    }
-
-    if (message.length > 0) {
-      this.refs.message.value = '';
-      updates.message = message
-    }
-
-    // this passes it up the chain 'lifting state' to its parent to handle
-    this.props.onNewData(updates);
-
-  },
-
-  render: function() {
-    return(
-      <form onSubmit={this.onFormSubmit}>
-        <div>
-          <input type="text" ref="name" placeholder="Enter Name" />
-        </div>
-        <div>
-          <textarea ref="message" placeholder="Enter Message" ></textarea>
-        </div>
-        <div>
-          <button>Submit</button>
-        </div>
-      </form>
-    );
-  }
-
-});
-*/
-
-/*
-var GreeterMessage = React.createClass({
-  render: function () {
-
-    var name = this.props.name;
-    var message = this.props.message;
-
-    return (
-      <div>
-        <h1>Hello, {name}!</h1>
-        <p>{message}</p>
-      </div>
-    );
-  }
-});
-*/
 
 /* Practice for classes  - Object Oriented Programming/ Functional Programming */
 /*
