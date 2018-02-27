@@ -1,9 +1,7 @@
 import React from 'react';
 
 class Product extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
     let name = this.props.name
     let description = this.props.description

@@ -11,15 +11,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: ''
+      category: 'All'
     }
     this.handleNewDisplayCategory = this.handleNewDisplayCategory.bind(this)
+    this.handleClickAll = this.handleClickAll.bind(this)
   }
   handleNewDisplayCategory(value) {
     // works - I lifted state properly
     this.setState({
     category: value
     })
+  }
+
+  handleClickAll(e) {
+    var value = e.target.innerHTML
+    this.handleNewDisplayCategory(value)
   }
 
   render() {
@@ -34,7 +40,8 @@ class App extends React.Component {
         return (
           <Product key={id} name={name} category={category} description={description} price={price}/>
         )
-      } else if (this.state.category === '') {
+      }
+      else if (this.state.category === 'All') {
         return (
           <Product key={id} name={name} category={category} description={description} price={price}/>
         )
@@ -55,7 +62,7 @@ class App extends React.Component {
 
         <div>
           {category}
-          <button className="btn btn-warning">All</button>
+          <button className="btn btn-warning" onClick={this.handleClickAll}>All</button>
         </div>
 
         <div className="product-container">
