@@ -74,6 +74,8 @@ class App extends React.Component {
   }
 }
 
-
+/*
+  Refact the components for cleaner component handling.
+*/
 
 export default App;
