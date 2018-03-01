@@ -36,20 +36,18 @@ class App extends React.Component {
       let description = item.description
       let price = item.price
 
-      if (category === this.state.category) {
+      if (category === this.state.category || this.state.category === 'All') {
         return (
           <Product key={id} name={name} category={category} description={description} price={price}/>
         )
       }
-      else if (this.state.category === 'All') {
-        return (
-          <Product key={id} name={name} category={category} description={description} price={price}/>
-        )
-      }
-
-
-
+      // else if (this.state.category === 'All') {
+      //   return (
+      //     <Product key={id} name={name} category={category} description={description} price={price}/>
+      //   )
+      // }
     })
+
     const category = categories.map((category, index) => {
       return (
         <Category key={index} category={category} onNewDisplayCategory={this.handleNewDisplayCategory}/>
