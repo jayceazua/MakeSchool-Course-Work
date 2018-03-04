@@ -4,21 +4,21 @@ const app = express();
 const exphbs = require('express-handlebars');
 // initialize mongoose
 const mongoose = require('mongoose');
-/* Accepting form data  
+/* Accepting form data
 	init body-parser and add it to app
 	body-parser gives us a new attribute of the req object called req.body
 	and this contain the form data
 */
 
 // connecting to a database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', 
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes',
 	{ useMongoClient: true });
 
 
 
 // database models
-const Comment = require('./models/comment');
-const Review = require('./models/review')
+const Comment = require('./models/comments');
+const Review = require('./models/reviews')
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;
 
