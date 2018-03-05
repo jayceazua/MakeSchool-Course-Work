@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 'All'
+      category: props.category
     }
     this.handleNewDisplayCategory = this.handleNewDisplayCategory.bind(this)
     this.handleClickAll = this.handleClickAll.bind(this)
@@ -41,11 +41,6 @@ class App extends React.Component {
           <Product key={id} name={name} category={category} description={description} price={price}/>
         )
       }
-      // else if (this.state.category === 'All') {
-      //   return (
-      //     <Product key={id} name={name} category={category} description={description} price={price}/>
-      //   )
-      // }
     })
 
     const category = categories.map((category, index) => {
@@ -75,5 +70,9 @@ class App extends React.Component {
 /*
   Refact the components for cleaner component handling.
 */
+
+App.defaultProps = {
+  category: 'All'
+}
 
 export default App;
